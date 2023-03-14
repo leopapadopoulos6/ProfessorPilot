@@ -30,24 +30,27 @@ def home():
 
 @app.route('/courses', methods=['GET', 'POST'])
 def courses():
-    log = {'name': 'tim'}
+    log = {'x': 'y'}
     print(log)
     return log
 
-
-@app.route('/professors')
+@app.route('/professors',  methods=['GET', 'POST'])
 def professors():
-    log = {'name': '123'}
+    log = {'x': 'y'}
     print(log)
     return log
 
-@app.route('/discussions')
+@app.route('/discussions',  methods=['GET', 'POST'])
 def discussions():
-    return 'HI'
+    log = {'x': 'y'}
+    print(log)
+    return log
 
 @app.route('/contact')
 def contact():
-    return 'HI'
+    log = {'x': 'y'}
+    print(log)
+    return log
 
 @app.route("/login")
 @cognito_login
