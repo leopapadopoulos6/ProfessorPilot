@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Card } from '../Components/card.js';
+import Card from './Card.js';
 
 export const Home = ()=> {
 
@@ -19,3 +19,4 @@ export const Home = ()=> {
         </>
     )
 }
+export default Home

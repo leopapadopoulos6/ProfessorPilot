@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, redirect, session, url_for, request
+from flask_cors import CORS, cross_origin
 
 from flask_cognito_lib import CognitoAuth
 from flask_cognito_lib.decorators import (
@@ -10,6 +11,8 @@ from flask_cognito_lib.decorators import (
 
 app = Flask(__name__)
 app.secret_key = "SecretKEY"
+CORS(app)
+
 # Configuration required for CognitoAuth
 app.config["AWS_REGION"] = "us-east-2"
 app.config["AWS_COGNITO_USER_POOL_ID"] = "us-east-2_bXRj7cAEc"
@@ -50,6 +53,7 @@ def contact():
     return 'HI'
 
 @app.route("/login")
+@cross_origin()
 @cognito_login
 def login():
     # A simple route that will redirect to the Cognito Hosted UI.
@@ -61,11 +65,13 @@ def login():
     # for example, set `session['state'] = "some_custom_value"` before passing
     # the user to this route
     session['state'] = 'unauthorized'
+
     pass
 
 
 @app.route("/postlogin")
 @cognito_login_callback
+@cross_origin()
 def postlogin():
     # A route to handle the redirect after a user has logged in with Cognito.
     # This route must be set as one of the User Pool client's Callback URLs in
@@ -76,8 +82,6 @@ def postlogin():
     # Do anything after the user has logged in here, e.g. a redirect or perform
     # logic based on a custom `session['state']` value if that was set before
     # login
-    #session['state'] = 'authorized'
-    #return redirect(url_for("courses"))
     return redirect(url_for("claims"))
 
 
@@ -90,7 +94,7 @@ def claims():
     # an `@app.error_handler(AuthorisationRequiredError)
     # If their auth is valid, the current session will be shown including
     # their claims and user_info extracted from the Cognito tokens.
-    #print(session['claims'])
+    print(session['claims'])
     #return jsonify(session)
     return redirect(url_for("courses")) 
 
@@ -130,4 +134,4 @@ def postlogout():
 
 if __name__ == "__main__":
     app.debug = True
-    app.run()
+    app.run(debug=True)

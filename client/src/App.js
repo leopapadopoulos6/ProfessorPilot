@@ -1,12 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import React from 'react';
-import { Home } from './Pages/home.js';
+import Home from './Components/Home';
+import Navbar from "./Components/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <Home/>
+        <Navbar/>
+        <div className="content">
+            <Home/>
+        </div>
     </div>
   );
 }
