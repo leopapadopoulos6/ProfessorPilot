@@ -1,4 +1,5 @@
 from flask import Blueprint, Flask, jsonify, redirect, session, url_for, request
+from .auth import login, logout, postlogin, postlogout, claims, admin
 
 #import cognito libraries
 from flask_cognito_lib import CognitoAuth
@@ -10,6 +11,14 @@ from flask_cognito_lib.decorators import (
 )
 
 app = Flask(__name__)
+auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+auth_bp.add_url_rule('/login', view_func=login, methods=['GET'])
+auth_bp.add_url_rule('/postlogin', view_func=postlogin, methods=['GET'])
+auth_bp.add_url_rule('/claims', view_func=claims, methods=['GET'])
+auth_bp.add_url_rule('/admin', view_func=admin, methods=['GET'])
+auth_bp.add_url_rule('/logout', view_func=logout, methods=['GET'])
+auth_bp.add_url_rule('/postlogin', view_func=postlogout, methods=['GET'])
+
 app.secret_key = "SecretKEY"
 
 # Configuration required for CognitoAuth
@@ -22,14 +31,12 @@ app.config["AWS_COGNITO_REDIRECT_URL"] = "http://localhost:5000/postlogin"
 app.config["AWS_COGNITO_LOGOUT_URL"] = "http://localhost:5000/postlogout"
 
 #import api files
-from backend.auth.auth import *
+from app.auth.auth import *
 
 #initialize app
 app = Flask(__name__)
 
 def build_auth():
-        
-    auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
-    app.register_blueprint(auth_bp)
+    
 
     return app

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, session, url_for, request
+from flask import Flask, jsonify, redirect, session, url_for, request, Blueprint
 
 from flask_cognito_lib import CognitoAuth
 from flask_cognito_lib.decorators import (
@@ -9,6 +9,9 @@ from flask_cognito_lib.decorators import (
 )
 
 app = Flask(__name__)
+auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+
 app.secret_key = "SecretKEY"
 # Configuration required for CognitoAuth
 app.config["AWS_REGION"] = "us-east-2"
@@ -20,37 +23,6 @@ app.config["AWS_COGNITO_REDIRECT_URL"] = "http://localhost:5000/postlogin"
 app.config["AWS_COGNITO_LOGOUT_URL"] = "http://localhost:5000/postlogout"
 
 auth = CognitoAuth(app)
-
-@app.route('/', methods=['GET'])
-@app.route('/home', methods=['GET'])
-def home():
-    log = {'John': 'Smith'}
-    #return jsonify(log)
-    return (log)
-
-@app.route('/courses', methods=['GET', 'POST'])
-def courses():
-    log = {'x': 'y'}
-    print(log)
-    return log
-
-@app.route('/professors',  methods=['GET', 'POST'])
-def professors():
-    log = {'x': 'y'}
-    print(log)
-    return log
-
-@app.route('/discussions',  methods=['GET', 'POST'])
-def discussions():
-    log = {'x': 'y'}
-    print(log)
-    return log
-
-@app.route('/contact')
-def contact():
-    log = {'x': 'y'}
-    print(log)
-    return log
 
 @app.route("/login")
 @cognito_login

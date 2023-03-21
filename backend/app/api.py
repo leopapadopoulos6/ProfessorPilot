@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, redirect, session, url_for, request, Blueprint
 
 app = Flask(__name__)
-
+api_bp= Blueprint('api', __name__, url_prefix='/api')
 
 #Home
 

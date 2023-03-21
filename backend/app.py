@@ -1,7 +1,7 @@
 from flask import Flask
 
 #imports from api
-from backend.api import build_api
+from app import build_api
 
 app = build_api()
 
