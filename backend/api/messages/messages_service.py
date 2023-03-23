@@ -1,4 +1,5 @@
 from flask import Flask, request
+from api import api
 from api.messages.message import Message
 
 

@@ -1,6 +1,7 @@
 from flask import (
     Blueprint
 )
+from api import api
 
 from api.messages.messages_service import (
     get_public_message,
