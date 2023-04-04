@@ -57,14 +57,11 @@ def get_recent_course_reviews():
 
 def get_reviews_by_course_code(course_code):
     " Fetches course reviews for a specific course from the db collection"
-
+    print(course_code)
     cursor = course_reviews.find(
-        {"status": "active", "course_code": course_code},
-        sort=[("CreateDate", -1)],
-        limit=25
-    )
-    specific_course_reviews = [{**review, '_id': str(review['_id'])} for review in cursor]
-    return specific_course_reviews
+        {"course_code": course_code}
+    )  
+    return [entry for entry in cursor]
 
 #COURSES
 

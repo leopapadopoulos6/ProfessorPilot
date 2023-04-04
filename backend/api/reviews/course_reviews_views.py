@@ -77,6 +77,8 @@ def get_course_reviews(course_code):
         return response
     if request.method == 'GET':
         course_reviews = get_reviews_by_course_code(course_code)
+        for entry in course_reviews:
+            entry["_id"] = str(entry["_id"])
         response = jsonify(course_reviews)
         response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4040'
         response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
