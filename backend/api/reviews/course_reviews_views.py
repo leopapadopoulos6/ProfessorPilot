@@ -65,8 +65,8 @@ def recent_entries():
         response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
         return response
 
-@bp.route('/courses/<courseCode>', methods=['GET', 'OPTIONS'])
-def get_course_reviews(courseCode):  
+@bp.route('/coursesPage/<course_code>', methods=['GET', 'OPTIONS'])
+def get_course_reviews(course_code):  
     "Gets reviews for a specific course"
     if request.method == 'OPTIONS':
         response = flask.Response(status=200)
@@ -75,7 +75,7 @@ def get_course_reviews(courseCode):
         response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
         return response
     if request.method == 'GET':
-        course_reviews = get_reviews_by_course_code(courseCode)
+        course_reviews = get_reviews_by_course_code(course_code)
         response = jsonify(course_reviews)
         response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4040'
         response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
