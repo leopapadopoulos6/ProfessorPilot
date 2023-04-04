@@ -30,9 +30,11 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/recent_course_reviews" element={<ReviewsList endpoint={"recent_course_reviews"} />}/>
-
+      {/* <Route path="/coursesPage/${course_code}" element={<ReviewsList endpoint={"coursesPage/${course_code}"} />}/> */}
       <Route path="/courses" element={<ReviewForm />}/>
       <Route path="/submit_course_review" element={<ReviewForm/>} />
+
+
 
       <Route path="/coursesPage" element={<CoursesPage />}/>
       <Route path="/coursesPage/:course_code" element={<CourseReviewsPage />} />

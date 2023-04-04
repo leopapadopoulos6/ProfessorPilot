@@ -43,7 +43,7 @@ def submit_course_review():
         'CreateDate': timestamp,
         'ModifiedDate': timestamp
     }
-
+    response = course_reviews.insert_one(course_review)
     return {"Message": "Submit Review Success"}
 
 def get_recent_course_reviews():
@@ -57,7 +57,6 @@ def get_recent_course_reviews():
 
 def get_reviews_by_course_code(course_code):
     " Fetches course reviews for a specific course from the db collection"
-    course_code = course_code.replace(" ", "%20")
 
     cursor = course_reviews.find(
         {"status": "active", "course_code": course_code},

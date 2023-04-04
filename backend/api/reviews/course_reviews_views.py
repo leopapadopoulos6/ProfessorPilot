@@ -65,6 +65,7 @@ def recent_entries():
         response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
         return response
 
+
 @bp.route('/coursesPage/<course_code>', methods=['GET', 'OPTIONS'])
 def get_course_reviews(course_code):  
     "Gets reviews for a specific course"
