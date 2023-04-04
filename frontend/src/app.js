@@ -14,6 +14,10 @@ import { ReviewForm } from "./components/review-form/review-form";
 import { CourseReviewsPage } from "./pages/course-reviews";
 import { CoursesPage } from "./pages/courses";
 import { ReviewsList } from "./components/review-list/reviews-list";
+import { ProfessorReviewsList } from "./components/professor-review-list/professor-review-list";
+import { ProfessorReviewsPage } from "./pages/professor-reviews";
+import { ProfessorsPage } from "./pages/professors";
+import { ProfessorReviewForm } from "./components/professor-review-form/professor-review-form";
 
 export const App = () => {
   const { isLoading } = useAuth0();
@@ -30,15 +34,19 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/recent_course_reviews" element={<ReviewsList endpoint={"recent_course_reviews"} />}/>
-      {/* <Route path="/coursesPage/${course_code}" element={<ReviewsList endpoint={"coursesPage/${course_code}"} />}/> */}
       <Route path="/courses" element={<ReviewForm />}/>
       <Route path="/submit_course_review" element={<ReviewForm/>} />
-
-
-
       <Route path="/coursesPage" element={<CoursesPage />}/>
       <Route path="/coursesPage/:course_code" element={<CourseReviewsPage />} />
+
       {/* <Route path="/CourseReviewsPage" element={<CourseReviewsPage />}/> */}
+
+      <Route path="/recent_professor_reviews" element={<ProfessorReviewsList endpoint={"recent_professor_reviews"} />}/>
+      <Route path="/professors" element={<ProfessorReviewForm />}/>
+      <Route path="/submit_professor_review" element={<ProfessorReviewForm/>} />
+      <Route path="/professorsPage" element={<ProfessorsPage />}/>
+      <Route path="/professorsPage/:professor" element={<ProfessorReviewsPage />} />
+
       <Route path="/profile" element={<AuthenticationGuard component={ProfilePage} />}/>
       <Route path="/public" element={<PublicPage />} />
       <Route

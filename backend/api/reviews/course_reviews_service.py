@@ -16,7 +16,9 @@ client_url = os.getenv('CLIENT')
 client = MongoClient(client_url)
 db = client['ProfessorPilot']
 course_reviews = db['CourseReviews']
-course_form =db['CourseForm']
+# course_form =db['CourseForm']
+courses_collection = db['Courses']
+profs_collection = db['Professors']
 #category_index = course_reviews.create_index("course_code") # create course_code index on collection
 
 
@@ -65,7 +67,7 @@ def get_reviews_by_course_code(course_code):
 
 #COURSES
 
-courses_collection = db['Courses']
+
 def get_all_courses():
     cursor = courses_collection.find({})
     all_courses = [{**course, '_id': str(course['_id'])} for course in cursor]
@@ -79,9 +81,62 @@ def get_all_courses():
     return all_courses
 
 
+#PROFESSORS
+
+def get_all_professors():
+    cursor = profs_collection.find({})
+    all_profs = [{**professor, '_id': str(professor['_id'])} for professor in cursor]
+
+    if all_profs is None:
+        print("null")
+    else:
+        print("not null")
+
+    print(all_profs)
+    return all_profs
+
+#PROFESSOR REVIEWS
 
 
+prof_review_collection = db['ProfessorReviews']
+def submit_professor_review():
+    data = request.get_json()
+    reviewer = data['reviewer']
+    _id = str(uuid.uuid4())
+    timestamp = str(int(time.time() * 1000))
+    professor_review = {
+        '_id': _id,
+        'Reviewer': str(reviewer),
+        'name': data['professor'],
+        'Communication': data['communication'],
+        'Organization': data['organization'],
+        'Availability': data['availability'],
+        'Grading': data['grading'],
+        'Competency': data['competency'],
+        'ReviewText': data['review_text'],
+        'Upvotes': 0,
+        'Status': 'active',
+        'CreateDate': timestamp,
+    }
+    response = prof_review_collection.insert_one(professor_review)
+    return {"Message": "Submit Review Success"}
 
+def get_recent_professor_reviews():
+    cursor = prof_review_collection.find(
+        {"Status": "active"},
+        sort=[("CreateDate", -1)],
+        limit=25
+    )
+    recent_entries = [entry for entry in cursor]
+    return recent_entries
+
+def get_reviews_by_professor(professor):
+    " Fetches professor reviews for a specific professor from the db collection"
+    print(professor)
+    cursor = prof_review_collection.find(
+        {"course_code": professor}
+    )  
+    return [entry for entry in cursor]
 
 
 def get_public_message():
