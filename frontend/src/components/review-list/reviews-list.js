@@ -77,7 +77,7 @@ export const ReviewsList = ({ endpoint, course_code }) => {
 
   return (
     <div>
-      <h1></h1>
+      <h1>Course Reviews</h1>
       <Grid container spacing={1}>
         {reviews.map((review, index) => {
           console.log('Review JSON:', JSON.stringify(review));
