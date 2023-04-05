@@ -10,10 +10,10 @@ import { NotFoundPage } from "./pages/not-found-page";
 import { ProfilePage } from "./pages/profile-page";
 import { ProtectedPage } from "./pages/protected-page";
 import { PublicPage } from "./pages/public-page";
-import { ReviewForm } from "./components/review-form/review-form";
+import { CourseReviewForm } from "./components/course-review-form/course-review-form";
 import { CourseReviewsPage } from "./pages/course-reviews";
 import { CoursesPage } from "./pages/courses";
-import { ReviewsList } from "./components/review-list/reviews-list";
+import { CourseReviewsList } from "./components/course-review-list/course-reviews-list";
 import { ProfessorReviewsList } from "./components/professor-review-list/professor-review-list";
 import { ProfessorReviewsPage } from "./pages/professor-reviews";
 import { ProfessorsPage } from "./pages/professors";
@@ -33,9 +33,9 @@ export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/recent_course_reviews" element={<ReviewsList endpoint={"recent_course_reviews"} />}/>
-      <Route path="/courses" element={<ReviewForm />}/>
-      <Route path="/submit_course_review" element={<ReviewForm/>} />
+      <Route path="/recent_course_reviews" element={<CourseReviewsList endpoint={"recent_course_reviews"} />}/>
+      <Route path="/courses" element={<CourseReviewForm />}/>
+      <Route path="/submit_course_review" element={<CourseReviewForm/>} />
       <Route path="/coursesPage" element={<CoursesPage />}/>
       <Route path="/coursesPage/:course_code" element={<CourseReviewsPage />} />
 

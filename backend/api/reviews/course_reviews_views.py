@@ -140,10 +140,10 @@ def submit_prof_review():
 @bp.route("/recent_professor_reviews", methods=["GET", "OPTIONS"])
 def recent_professor_entries():
     if request.method == 'GET':
-        recent_course_reviews = get_recent_course_reviews()
-        for entry in recent_course_reviews:
+        recent_professor_reviews = get_recent_professor_reviews()
+        for entry in recent_professor_reviews:
             entry["_id"] = str(entry["_id"])
-        response = jsonify(recent_course_reviews)
+        response = jsonify(recent_professor_reviews)
         response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4040'
         response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
         response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'

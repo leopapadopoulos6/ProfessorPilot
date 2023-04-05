@@ -19,6 +19,7 @@ course_reviews = db['CourseReviews']
 # course_form =db['CourseForm']
 courses_collection = db['Courses']
 profs_collection = db['Professors']
+professor_reviews = db['ProfessorReviews']
 #category_index = course_reviews.create_index("course_code") # create course_code index on collection
 
 
@@ -97,8 +98,6 @@ def get_all_professors():
 
 #PROFESSOR REVIEWS
 
-
-prof_review_collection = db['ProfessorReviews']
 def submit_professor_review():
     data = request.get_json()
     reviewer = data['reviewer']
@@ -107,7 +106,7 @@ def submit_professor_review():
     professor_review = {
         '_id': _id,
         'Reviewer': str(reviewer),
-        'name': data['professor'],
+        'professor': data['professor'],
         'Communication': data['communication'],
         'Organization': data['organization'],
         'Availability': data['availability'],
@@ -118,11 +117,11 @@ def submit_professor_review():
         'Status': 'active',
         'CreateDate': timestamp,
     }
-    response = prof_review_collection.insert_one(professor_review)
+    response = professor_reviews.insert_one(professor_review)
     return {"Message": "Submit Review Success"}
 
 def get_recent_professor_reviews():
-    cursor = prof_review_collection.find(
+    cursor = professor_reviews.find(
         {"Status": "active"},
         sort=[("CreateDate", -1)],
         limit=25
@@ -133,9 +132,10 @@ def get_recent_professor_reviews():
 def get_reviews_by_professor(professor):
     " Fetches professor reviews for a specific professor from the db collection"
     print(professor)
-    cursor = prof_review_collection.find(
-        {"course_code": professor}
-    )  
+    cursor = professor_reviews.find(
+        {"professor": professor}
+    )
+    print(entry for entry in cursor)  
     return [entry for entry in cursor]
 
 
